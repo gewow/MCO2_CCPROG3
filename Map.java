@@ -186,7 +186,7 @@ public class Map {
 
         if (keys[x][y] == key) {
             keys[x][y].setIsCollected(true);
-            this.grid[x][y] = new Tile(x, y, '.', null);
+            this.grid[x][y] = new FloorTile(x, y, '.');
         }
     }
      /**
@@ -204,7 +204,7 @@ public class Map {
 
         if (this.boots[x][y] == boots) {
             this.boots[x][y].setIsCollected(true);
-            this.grid[x][y] = new Tile(x, y, '.', null);
+            this.grid[x][y] = new FloorTile(x, y, '.');
         }
     }
 
@@ -223,7 +223,7 @@ public class Map {
 
         if (this.microchips[x][y] == microchip) {
             this.microchips[x][y].setCollected(true);
-            this.grid[x][y] = new Tile(x, y, '.', null);
+            this.grid[x][y] = new FloorTile(x, y, '.');
         }
     }
 

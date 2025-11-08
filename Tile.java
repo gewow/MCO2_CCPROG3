@@ -10,11 +10,10 @@
  * 
  */
 
-public class Tile {
+public abstract class Tile {
     private int xPosition;
     private int yPosition;
     private char symbol;
-    private String direction;
     
     /**
      * 
@@ -30,11 +29,10 @@ public class Tile {
      * @param symbol the specific symbol of the specific Tile
      * @param direction the specific direction
      */
-    public Tile (int xPosition, int yPosition, char symbol, String direction) {
+    public Tile (int xPosition, int yPosition, char symbol) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.symbol = symbol;
-        this.direction = direction;
     }
     
     /**
@@ -47,28 +45,7 @@ public class Tile {
      * @param player the current Player
      * @return true if allowed, false if otherwise
      */
-    public boolean canPlayerEnter(Player player) {
-
-        switch(symbol) {
-            case '.': //blank tile
-                return true;
-            case 'W': //water tile
-                return player.getInventory().hasBoots("flippers");
-            case '#': //wall tile
-                return false;
-            case 'F': //fire tile
-                return player.getInventory().hasBoots("fireboots");
-            case 'E': //exit tile
-                return true;
-            case '>': // right
-            case '^': // up
-            case 'v': // down
-            case '<': // left
-                return true;
-            default:
-                return false;
-        }
-    }
+    public abstract boolean canPlayerEnter(Player player);
     
     /**
      * Handles the actions when players enter the tile.
@@ -80,32 +57,8 @@ public class Tile {
      * @param player the player itself
      * @param map the map being played on
      */
-    public void onPlayerEnter(Player player, Map map) {
-        switch (symbol) {
-            case 'W':
-                if (!player.getInventory().hasBoots("flippers")) {
-                    player.killPlayer("drowned");
-                }
-                break;
-            case 'F':
-                if (!player.getInventory().hasBoots("fireboots")) {
-                    player.killPlayer("caught on fire");
-                }
-                break;
-            case '^':
-                player.move('w', map);
-                break;
-            case '<':
-                player.move('a', map);
-                break;
-            case 'v':
-                player.move('s', map);
-                break;
-            case '>':
-                player.move('d', map);
-                break;
-        }
-    }
+    public abstract void onPlayerEnter(Player player, Map map);
+
     /**
      * Gets the x coordinate of the Tile.
      * 
@@ -126,14 +79,6 @@ public class Tile {
         return yPosition;
     }
     
-    /**
-     * Returns the direction of the tile (for the force floor type).
-     * 
-     * @return direction of the force floor tile
-     */
-    public String getDirection() {
-        return direction;
-    }
     
     /**
      * Gets the symbol of the specific tile.
