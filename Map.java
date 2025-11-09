@@ -10,9 +10,7 @@
 public class Map {
     private Tile[][] grid;
     private Door[][] doors;
-    private Key[][] keys;
-    private Boots[][] boots;
-    private Microchip[][] microchips;
+    private Item[][] items;
     private int width;
     private int height;
     
@@ -29,12 +27,10 @@ public class Map {
      * @param height map height
      * 
      */
-    public Map(Tile[][] grid, Door[][] doors, Key[][] keys, Boots[][] boots, Microchip[][] microchips, int width, int height) {
+    public Map(Tile[][] grid, Door[][] doors, Item[][] items, int width, int height) {
         this.grid = grid;
         this.doors = doors;
-        this.keys = keys;
-        this.boots = boots;
-        this.microchips = microchips;
+        this.items = items;
         this.width = width;
         this.height = height;
     }
@@ -99,39 +95,15 @@ public class Map {
     }
 
     /**
-     * Returns the key at the specified coordinates.
+     * Returns a specific item.
      * 
-     * @param x the x coordinate
-     * @param y the y coordinate
+     * @param x The x coordinate
+     * @param y The y coordinate
      * 
-     * @return the keys at the given position
+     * @return the specified item at the specific coordinates
      */
-    public Key getKeyAt(int x, int y) {
-        return this.keys[x][y];
-    }
-
-    /**
-     * Returns the boots at the specified coordinates.
-     * 
-     * @param x the x coordinate
-     * @param y the y coordinate
-     * 
-     * @return the boots at the given position
-     */
-    public Boots getBootsAt(int x, int y) {
-        return this.boots[x][y];
-    }
-
-    /**
-     * Returns the microchip/s at the specified coordinates.
-     * 
-     * @param x the x coordinate
-     * @param y the y coordinate
-     * 
-     * @return the microchips at the given position
-     */
-    public Microchip getMicrochipsAt(int x, int y) {
-        return this.microchips[x][y];
+    public Item getItemAt(int x, int y){
+        return this.items[x][y];
     }
 
     /**
@@ -143,89 +115,18 @@ public class Map {
         return this.doors;
     }
 
-    /**
-     * Returns the 2D array of all the keys at the map.
-     * 
-     * @return the 2D array of all key objects
-     */
-    public Key[][] getKeys() {
-        return this.keys;
-    }
+    
 
-    /**
-     * Returns the 2D array of all the boots at the map.
-     * 
-     * @return the 2D array of all boots objects
-     */
-    public Boots[][] getBoots() {
-        return this.boots;
-    }
+    public void removeItem(Item item){
+        int x = item.getXPosition();
+        int y = item.getYPosition();
 
-    /**
-     * Returns the 2D array of all the microchips at the map.
-     * 
-     * @return the 2D array of microchip objects
-     */
-     public Microchip[][] getMicrochips() {
-        return this.microchips;
-    }
-
-    /**
-     * Removes key in the map by collecting it, then replace it with a blank tile.
-     * 
-     * <p>
-     * pre-condition: key exist on the map and is NOT null
-     * post-condition: key should be marked as collected, then is replaced with blank tile
-     * </p>
-     * @param key The key object to be removed
-     */
-    public void removeKey(Key key) {
-
-        int x = key.getXPosition();
-        int y = key.getYPosition();
-
-        if (keys[x][y] == key) {
-            keys[x][y].setIsCollected(true);
-            this.grid[x][y] = new FloorTile(x, y, '.');
-        }
-    }
-     /**
-     * Removes boots in the map by collecting it, then replace it with a blank tile.
-     * 
-     * <p>
-     * pre-condition: boots exist on the map and is NOT null
-     * post-condition: boots should be marked as collected, then is replaced with blank tile
-     * </p>
-     * @param boots The boots object to be removed
-     */
-    public void removeBoots(Boots boots) {
-        int x = boots.getXPosition();
-        int y = boots.getYPosition();
-
-        if (this.boots[x][y] == boots) {
-            this.boots[x][y].setIsCollected(true);
+        if(items[x][y] == item){
+            items[x][y].setIsCollected(true);
             this.grid[x][y] = new FloorTile(x, y, '.');
         }
     }
 
-    /**
-     * Removes microchip in the map by collecting it, then replace it with a blank tile.
-     * 
-     * <p>
-     * pre-condition: microchips exist on the map and is NOT null
-     * post-condition: microchips should be marked as collected, then is replaced with blank tile
-     * </p>
-     * @param microchip The microchip object to be removed
-     */
-    public void removeMicrochips(Microchip microchip) {
-        int x = microchip.getXPosition();
-        int y = microchip.getYPosition();
-
-        if (this.microchips[x][y] == microchip) {
-            this.microchips[x][y].setCollected(true);
-            this.grid[x][y] = new FloorTile(x, y, '.');
-        }
-    }
 
     /**
      * Returns true or false if the given coordinates is a valid position.

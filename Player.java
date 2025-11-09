@@ -121,46 +121,25 @@ public class Player {
     }
 
     /**
-     * Collects boots and put to inventory.
+     * Collects item and put to inventory.
      * 
      * <p>
-     * pre-condition: boot is valid and NOT null
-     * post-condition: boots is added to inventory and set as collected
+     * pre-condition: item is valid and NOT null
+     * post-condition: item is added to inventory and set as collected
      * </p>
      * @param boot the boots being collected
      */
-    public void collectBoot(Boots boot){
-        inventory.addBoots(boot);
-        boot.setIsCollected(true);
+    public void collectItem(Item item){
+        if (item != null && !item.getIsCollected()){
+            item.onPlayerPickup(this);
+        }
     }
 
-   /**
-     * Collects keys and put to inventory.
-     * 
-     * <p>
-     * pre-condition: Key is valid and NOT null
-     * post-condition: Key is added to inventory and set as collected
-     * </p>
-     * @param key the key being collected
-     */
-    public void collectKey(Key key){
-        inventory.addKey(key);
-        key.setIsCollected(true);
-    }
 
-    /**
-     * Collects microchips and put to inventory.
-     * 
-     * <p>
-     * pre-condition: microchip is valid and NOT null
-     * post-condition: microchip is incremented and added to inventory and set as collected
-     * </p>
-     * @param microchip the microchip being collected
-     */
-    public void collectMicrochip(Microchip microchip){
+    public void addMicrochips(){
         this.microchips++;
-        microchip.setCollected(true);
     }
+
 
     /**
      * Returns the number of microchips.

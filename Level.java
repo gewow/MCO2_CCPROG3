@@ -110,9 +110,7 @@ public class Level {
     public void createMap(){
         Tile[][] tiles = new Tile[this.height][this.width];
         Door[][] doors = new Door[this.height][this.width];
-        Key[][] keys = new Key[this.height][this.width];
-        Boots[][] boots = new Boots[this.height][this.width];
-        Microchip[][] microchips = new Microchip[this.height][this.width];
+        Item[][] items = new Item[this.height][this.width];
 
         for (int x = 0; x < height; x++){
             for (int y = 0; y < width; y++){
@@ -156,23 +154,23 @@ public class Level {
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
                     case 'k':
-                        keys[x][y] = new Key(x, y, "red", symbol);
+                        items[x][y] = new Key(x, y, symbol, "red");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
                     case 'K':
-                        keys[x][y] = new Key(x, y, "blue", symbol);
+                        items[x][y] = new Key(x, y, symbol, "blue");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
                     case 'B':
-                        boots[x][y] = new Boots(x, y, "fireboots", symbol);
+                        items[x][y] = new Boots(x, y, symbol, "fireboots");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
                     case 'P':
-                        boots[x][y] = new Boots(x, y, "flippers", symbol);
+                        items[x][y] = new Boots(x, y, symbol, "flippers");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
                     case 'M':
-                        microchips[x][y] = new Microchip(x, y);
+                        items[x][y] = new Microchip(x, y,symbol);
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
                     case 'S':
@@ -184,7 +182,7 @@ public class Level {
             }
         }
 
-        this.map = new Map(tiles, doors, keys, boots, microchips, this.width, this.height);
+        this.map = new Map(tiles, doors, items, this.width, this.height);
     }
 
 

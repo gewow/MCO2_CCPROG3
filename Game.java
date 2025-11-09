@@ -175,25 +175,13 @@ public class Game {
                 break;
             }
 
-            Key key = currentLevel.getMap().getKeyAt(player.getXPosition(), player.getYPosition());
-            Boots boots = currentLevel.getMap().getBootsAt(player.getXPosition(), player.getYPosition());
-            Microchip microchip = currentLevel.getMap().getMicrochipsAt(player.getXPosition(), player.getYPosition());
+           
             Door door = currentLevel.getMap().getDoorAt(player.getXPosition(), player.getYPosition());
+            Item item = currentLevel.getMap().getItemAt(player.getXPosition(), player.getYPosition());
 
-            if (key != null && !key.getIsCollected()){
-                player.collectKey(key); //collects key if there is key found in current player position
-                System.out.println("You have collected a " + key.getColor() + " key!");
-                currentLevel.getMap().removeKey(key); //remove key on game map
-            }
-            else if (boots != null && !boots.getIsCollected()){
-                player.collectBoot(boots); //collects boots if there is a boot found in current player position
-                System.out.println("You have collected " + boots.getType() + "!");
-                currentLevel.getMap().removeBoots(boots); //remove boots from map
-            }
-            else if (microchip != null && !microchip.getIsCollected()){
-                player.collectMicrochip(microchip); //collects microchip
-                System.out.println("You have collected a microchip!");
-                currentLevel.getMap().removeMicrochips(microchip); //remove microchip from map
+            if (item != null && !item.getIsCollected()){
+                player.collectItem(item); //collects item if there is item found in current player position
+                currentLevel.getMap().removeItem(item); //remove item on game map
             }
             else if (door != null){
                 door.onPlayerEnter(player, currentLevel.getMap());  //check for door at player position and handle entry
@@ -310,14 +298,8 @@ public class Game {
                 else if (map.getDoorAt(x, y) != null){
                     symbolToDisplay = map.getDoorAt(x, y).getSymbol();
                 }
-                else if (map.getKeyAt(x, y) != null && !map.getKeyAt(x, y).getIsCollected()){
-                    symbolToDisplay = map.getKeyAt(x, y).getSymbol();
-                }
-                else if (map.getBootsAt(x, y) != null && !map.getBootsAt(x, y).getIsCollected()){
-                    symbolToDisplay = map.getBootsAt(x, y).getSymbol();
-                }
-                else if (map.getMicrochipsAt(x, y) != null && !map.getMicrochipsAt(x, y).getIsCollected()){
-                    symbolToDisplay = map.getMicrochipsAt(x, y).getSymbol();
+                else if (map.getItemAt(x, y) != null && !map.getItemAt(x, y).getIsCollected()){
+                    symbolToDisplay = map.getItemAt(x, y).getSymbol();
                 }
                 else if (map.getTile(x, y) != null){
                     symbolToDisplay = map.getTile(x, y).getSymbol();

@@ -12,13 +12,8 @@
  * @version 1.0
  */
 
-public class Key{
-    private int xPosition;
-    private int yPosition;
+public class Key extends Item{
     private String color;
-    private boolean isCollected;
-    private char symbol;
-
     /**
      * Constructs a key with a specified coordinate, color and symbol for representation
      * 
@@ -29,12 +24,15 @@ public class Key{
      * @param color the color of the key
      * @param symbol the symbol representing each key type
      */
-    public Key(int xPosition, int yPosition, String color, char symbol){
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
+    public Key(int xPosition, int yPosition, char symbol, String color){
+        super(xPosition, yPosition, symbol);
         this.color = color;
-        this.isCollected = false;
-        this.symbol = symbol; 
+    }
+
+    @Override
+    public void onPlayerPickup(Player player){
+        player.getInventory().addKey(this);
+        this.setIsCollected(true);
     }
 
     /**
@@ -44,53 +42,5 @@ public class Key{
      */
     public String getColor(){
         return color;
-    }
-
-    /**
-     * Returns the x coordinate of the key.
-     * 
-     * @return xPosition
-     */
-    public int getXPosition(){
-        return xPosition;
-    }
-
-    /**
-     * Returns the y coordinate of the key.
-     * 
-     * @return yPosition
-     */
-    public int getYPosition(){
-        return yPosition;
-    }
-    /**
-     * Returns the symbol representing the key.
-     * 
-     * @return symbol
-     */
-    public char getSymbol(){
-        return symbol;
-    }
-
-    /**
-     * <p>
-     * Returns true or false, depending on whether the key has been collected
-     * by the player.
-     * </p>
-     * 
-     * @return isCollected (true if collected, false otherwise)
-     */
-    public boolean getIsCollected(){
-        return isCollected;
-    }
-
-    /**
-     * Sets the collected status of the key
-     * 
-     * @param isCollected (true if key has been collected, false otherwise)
-     * 
-     */
-    public void setIsCollected(boolean isCollected){
-        this.isCollected = isCollected;
     }
 }

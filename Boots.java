@@ -11,13 +11,8 @@
  * 
  */
 
-public class Boots{
-    private int xPosition;
-    private int yPosition;
-    private boolean isCollected;
+public class Boots extends Item{
     private String type;
-    private char symbol;
-
     /**
      * Constructs a Boots object with a specified x and y position, type of boots, and its symbol.
      * 
@@ -26,65 +21,18 @@ public class Boots{
      * @param type the type of boots
      * @param symbol the symbol representing with each type of boots
      */
-    public Boots(int xPosition, int yPosition, String type, char symbol){
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
+    public Boots(int xPosition, int yPosition, char symbol, String type){
+        super(xPosition, yPosition, symbol);
         this.type = type;
-        this.isCollected = false;
-        this.symbol = symbol;
+    }
+    
+    @Override
+    public void onPlayerPickup(Player player){
+        player.getInventory().addBoots(this);
+        this.setIsCollected(true);
     }
 
-    /**
-     * Returns the x coordinate of the boots in the map.
-     * 
-     * <p>
-     * pre-condition: The boots must be instantiated
-     * post-condition: Returns the x coordinate/position of the boots 
-     * </p>
-     * @return x-coordinate of the boots
-     */
-    public int getXPosition(){
-        return xPosition;
-    }
-
-    /**
-     * Returns the y coordinate of the boots in the map.
-     * <p>
-     * pre-condition: The boots must be instantiated
-     * post-condition: Returns the y coordinate/position of the boots 
-     * </p>
-     * @return y-coordinate of the boots
-     */
-    public int getYPosition(){
-        return yPosition;
-    }
-
-    /**
-     * Returns the symbol that represents the boots in the map.
-     * 
-     * <p>
-     * pre-condition: Boots should be instantiated
-     * post-condition: returns the char symbol of the boots
-     * </p>
-     * @return character symbol of boots
-     */
-    public char getSymbol(){
-        return symbol;
-    }
-
-    /**
-     * Returns true if the boots is collected and false if not, based on isCollected.
-     * 
-     * <p>
-     * pre-condition: Boots should be instantiated
-     * post-condition: true if the boots is collected, false otherwise
-     * </p>
-     * @return true if collected, false otherwise.
-     */
-    public boolean getIsCollected(){
-        return isCollected;
-    }
-
+   
     /**
      * Returns the type of boots (Either Flippers or fireboots).
      * 
@@ -96,15 +44,5 @@ public class Boots{
      */
     public String getType(){
         return type;
-    }
-
-    /**
-     * Sets and updates the status of the collected boots.
-     * 
-     * post-condition: updates the status of the collected boots.
-     * @param isCollected sets to true if collected and false if otherwise
-     */
-    public void setIsCollected(boolean isCollected){
-        this.isCollected = isCollected;
     }
 }
