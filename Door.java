@@ -49,20 +49,22 @@ public class Door {
      * @return true if player can enter, false otherwise
      */
     public boolean canPlayerEnter(Player player) {
-        if (!isLocked) {
+        // if color is red/blue, check if inventory has any one of those, if so, return true, else false
+
+        if(isLocked == false) {
             return true;
         }
         
         Inventory inventory = player.getInventory();
-        
+
         if (inventory.hasKey(this.color)) {
-            return true;  // Has key, can enter
+            return true;  // Player has the key
         }
-        
+
         System.out.println("Door is locked! You need a " + this.color + " key to unlock it!");
-        return false;  // Blocks movement
+        return false;
     }
-        
+    
     /**
      * Handles what happens once player enters the door.
      * 
@@ -79,15 +81,19 @@ public class Door {
      * @param map the map where the door resides
      */
     public void onPlayerEnter(Player player, Map map) {
-        // This only runs if canPlayerEnter returned true
-        if (this.isLocked) {
-            this.isLocked = false;
-            player.getInventory().useKey(this.color);
-            System.out.println("Door unlocked using player's " + this.color + " key!");
-            
+
+        Inventory inventory = player.getInventory();
+        
+        if (canPlayerEnter(player) == true) {
+            if (this.isLocked) {  // Only if actually locked
+                this.isLocked = false;
+                inventory.useKey(this.color);
+                System.out.println("Door unlocked using player's " + this.color + " key!");
+            }
             Tile tile = new FloorTile(this.xPosition, this.yPosition, '.');
             map.setTile(this.xPosition, this.yPosition, tile);
         }
+
     }
     
     /**

@@ -116,18 +116,70 @@ public class Level {
 
         for (int x = 0; x < height; x++){
             for (int y = 0; y < width; y++){
-                if (layout[x][y] == '.' || layout[x][y] == 'W' || layout[x][y] == 'F' || 
-                    layout[x][y] == '^' || layout[x][y] == 'v' || layout[x][y] == '<' || 
-                    layout[x][y] == '>' || layout[x][y] == '#' || layout[x][y] == 'S' || layout[x][y] == 'E'){
-                    placeTiles(x, y, layout[x][y], tiles);
-                }
-                else if (layout[x][y] == 'D' || layout[x][y] == 'd'){
-                    placeDoors(x, y, layout[x][y], doors, tiles);
-                }
-                else if (layout[x][y] == 'K' || layout[x][y] == 'k' || 
-                         layout[x][y] == 'B' || layout[x][y] == 'P' ||
-                         layout[x][y] == 'M'){
-                            placeItems(x, y, layout[x][y], keys, boots, microchips, tiles);
+                char symbol = layout[x][y];
+                switch(symbol){
+                    case '#': 
+                        tiles[x][y] = new WallTile(x, y, symbol); //wall tile
+                        break;
+                    case '.':
+                        tiles[x][y] = new FloorTile(x, y, symbol); //floor tile
+                        break;
+                    case 'F':
+                        tiles[x][y] = new FireTile(x, y, symbol); //fire tile
+                        break;
+                    case 'W':
+                        tiles[x][y] = new WaterTile(x, y, symbol); //water tile
+                        break;
+                    case 'E':
+                        this.exitX = x;
+                        this.exitY = y;
+                        tiles[x][y] = new ExitTile(x, y, symbol); //exit tile
+                        break;
+                    case '>':
+                        tiles[x][y] = new ForceFloor(x, y, symbol, "Right"); //Force floor - right
+                        break;
+                    case '<':
+                        tiles[x][y] = new ForceFloor(x, y, symbol, "Left"); //Force floor - left
+                        break;
+                    case '^':
+                        tiles[x][y] = new ForceFloor(x, y, symbol, "Up"); //Force floor - up
+                        break;
+                    case 'v':
+                        tiles[x][y] = new ForceFloor(x, y, symbol, "Down"); //Force floor - down
+                        break;
+                    case 'd':
+                        doors[x][y] = new Door(x, y, "red", symbol);
+                        tiles[x][y] = new FloorTile(x, y, '.');
+                        break;
+                    case 'D':
+                        doors[x][y] = new Door(x, y, "blue", symbol);
+                        tiles[x][y] = new FloorTile(x, y, '.');
+                        break;
+                    case 'k':
+                        keys[x][y] = new Key(x, y, "red", symbol);
+                        tiles[x][y] = new FloorTile(x, y, '.');
+                        break;
+                    case 'K':
+                        keys[x][y] = new Key(x, y, "blue", symbol);
+                        tiles[x][y] = new FloorTile(x, y, '.');
+                        break;
+                    case 'B':
+                        boots[x][y] = new Boots(x, y, "fireboots", symbol);
+                        tiles[x][y] = new FloorTile(x, y, '.');
+                        break;
+                    case 'P':
+                        boots[x][y] = new Boots(x, y, "flippers", symbol);
+                        tiles[x][y] = new FloorTile(x, y, '.');
+                        break;
+                    case 'M':
+                        microchips[x][y] = new Microchip(x, y);
+                        tiles[x][y] = new FloorTile(x, y, '.');
+                        break;
+                    case 'S':
+                        this.playerStartX = x;
+                        this.playerStartY = y;
+                        tiles[x][y] = new FloorTile(x, y, '.');
+                        break;
                 }
             }
         }
@@ -135,117 +187,6 @@ public class Level {
         this.map = new Map(tiles, doors, keys, boots, microchips, this.width, this.height);
     }
 
-    /**
-     * Converts the inventory item symbols/characters to their respective game objects.
-     * 
-     * pre-condition: keys, boots, and microchips are initialized
-     * 
-     * @param x The x coordinate
-     * @param y The y coordinate
-     * @param symbol Symbol representing the inventory item
-     * @param keys 2D array of keys
-     * @param boots 2D array of boots
-     * @param microchips 2D array of microchips
-     */
-    public void placeItems(int x, int y, char symbol, Key[][] keys, Boots[][] boots, Microchip[][] microchips, Tile[][] tiles){
-        switch(symbol){
-            case 'K': //blue key
-                keys[x][y] = new Key(x, y, "blue", 'K');
-                tiles[x][y] = new FloorTile(x, y, '.');
-                break;
-            case 'k': //red key
-                keys[x][y] = new Key(x, y, "red", 'k');
-                tiles[x][y] = new FloorTile(x, y, '.');
-                break;
-            case 'B': //fireboots
-                boots[x][y] = new Boots(x, y, "fireboots", 'B');
-                tiles[x][y] = new FloorTile(x, y, '.');
-                break;
-            case 'P': //flippers
-                boots[x][y] = new Boots(x, y, "flippers", 'P');
-                tiles[x][y] = new FloorTile(x, y, '.');
-                break;
-            case 'M': //microchips
-                microchips[x][y] = new Microchip(x, y);
-                tiles[x][y] = new FloorTile(x, y, '.');
-                break;
-        }
-
-    }
-
-    /**
-     * Converts the type of doors and their symbols/characters to their respective game objects.
-     * 
-     * pre-condition: doors array is initialized
-     * 
-     * @param x The x coordinate
-     * @param y The y coordinate
-     * @param symbol Symbol representing the inventory item
-     * @param doors 2D array of doors
-     */
-    public void placeDoors(int x, int y, char symbol, Door[][] doors, Tile[][] tiles){
-        switch(symbol){
-            case 'D': //blue door
-                doors[x][y] = new Door(x, y, "blue", symbol);
-                tiles[x][y] = new FloorTile(x, y, '.');
-                break;
-            case 'd': //red door
-                doors[x][y] = new Door(x, y, "red", symbol);
-                tiles[x][y] = new FloorTile(x, y, '.');
-                break;
-        }
-    }
-
-    /**
-     * Converts the different type of tiles  and their symbols/characters to their respective game objects.
-     * 
-     * <p>
-     * pre-condition: tiles array is initialized
-     * post-condition: specific tiles are placed in the map
-     * </p>
-     * @param x The x coordinate
-     * @param y The y coordinate
-     * @param symbol Symbol representing the inventory item
-     * @param tiles 2D array of tiles
-     */
-    public void placeTiles(int x, int y, char symbol, Tile[][] tiles){
-        switch(symbol){
-            case 'S': //starting tile
-                tiles[x][y] = new FloorTile(x, y, symbol);
-                this.playerStartX = x;
-                this.playerStartY = y;
-                break;
-            case 'E': //exit tile
-                tiles[x][y] = new ExitTile(x, y, symbol);
-                this.exitX = x;
-                this.exitY = y;
-                break;
-            case '.': //empty tile
-                tiles[x][y] = new FloorTile(x, y, symbol);
-                break;
-            case 'W': //water tile
-                tiles[x][y] = new WaterTile(x, y, symbol);
-                break;
-            case 'F': //fire tile
-                tiles[x][y] = new FireTile(x, y, symbol);
-                break;
-            case '#': // wall tile
-                tiles[x][y] = new WallTile(x, y, symbol);
-                break;
-            case '^': //force floor tile UP
-                tiles[x][y] = new ForceFloor(x, y, symbol, "Up");
-                break;
-            case 'v': //force floor tile DOWN
-                tiles[x][y] = new ForceFloor(x, y, symbol, "Down");
-                break;
-            case '<': //force floor tile LEFT
-                tiles[x][y] = new ForceFloor(x, y, symbol, "Left");
-                break;
-            case '>': //force floor tile RIGHT
-                tiles[x][y] = new ForceFloor(x, y, symbol, "Right");
-                break;
-        }
-    }
 
     /**
      * Returns the player starting x position.

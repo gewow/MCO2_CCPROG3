@@ -69,20 +69,18 @@ public class Player {
         if (canMoveTo(tempX, tempY, map)){
             this.xPosition = tempX;
             this.yPosition = tempY;
-
+            
+            // After moving, trigger the tile's onPlayerEnter to handle chain reactions
             Tile tile = map.getTile(this.xPosition, this.yPosition);
-            if (tile != null) { 
-                tile.onPlayerEnter(this, map);
+            if (tile != null) {
+                tile.onPlayerEnter(this, map); // Pass null for game since we don't need it in recursive calls
             }
 
-            //Trigger the DOOR's onPlayerEnter (to unlock it)
             Door door = map.getDoorAt(this.xPosition, this.yPosition);
-            if (door != null) {
+            if (door != null){
                 door.onPlayerEnter(this, map);
             }
         }
-
-        
     }
 
     /**
@@ -105,10 +103,11 @@ public class Player {
         
         Tile tile = map.getTile(x, y);
 
+        //safety check for null tiles
         if (tile == null){
             return false;
         }
-        
+
         if (!tile.canPlayerEnter(this)){
             return false;
         }

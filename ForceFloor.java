@@ -14,16 +14,16 @@ public class ForceFloor extends Tile{
     @Override
     public void onPlayerEnter(Player player, Map map){
         switch(direction){
-            case "up":
+            case "Up":
                 player.move('w', map);
                 break;
-            case "down":
+            case "Down":
                 player.move('s', map);
                 break;
-            case "right":
+            case "Right":
                 player.move('d', map);
                 break;
-            case "left":
+            case "Left":
                 player.move('a', map);
                 break;
         }
