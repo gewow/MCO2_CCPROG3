@@ -1,0 +1,16 @@
+{
+    // For COMPILATION (to remove the red lines)
+    "java.project.referencedLibraries": [
+        // Update the path here with the wildcard for all JARs
+        "C:/DLSU Files/openjfx-25.0.1_windows-x64_bin-sdk/javafx-sdk-25.0.1/lib/*.jar"
+    ],
+
+    // For RUNTIME VM Arguments (if you are using this method)
+    "java.project.vmargs": [
+        "--module-path",
+        "C:\\DLSU Files\\openjfx-25.0.1_windows-x64_bin-sdk\\javafx-sdk-25.0.1\\lib", // Use double backslashes here
+        "--add-modules",
+        "javafx.controls,javafx.graphics,javafx.fxml"
+    ],
+    "java.launch.forceImportArgumentProvider": true 
+}
