@@ -50,6 +50,11 @@ public class Map {
     public Tile getTile(int x, int y) {
         return this.grid[x][y];
     }
+
+    // for GUI to access all tiles to connect default ui to GUI
+    public Tile[][] getGrid() {
+        return this.grid;
+    }
     
     /** 
      * Sets a tile at the specified position.
