@@ -1,7 +1,28 @@
-import javax.swing.*;
-import java.awt.*;
+
+
+//for image dictionary
+import java.util.Map;
+import java.util.HashMap;
+
+import java.awt.GridLayout;
+import java.awt.Color;
+
+//for keyboard listener
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+
+//for images
+import javax.swing.ImageIcon;
 
 public class GUI {
+
+    private Game game; //holds the model (Game class)
+    private Map<Character, ImageIcon> imageMap; //creates key value pairs for each character pertaining to associated image
 
     private JFrame frame; //window of the program
     private JPanel gridPanel; // panel that holds the grid of tiles
@@ -60,7 +81,7 @@ public class GUI {
         displayLevel(level);
     }
 
-    public void displayLevel(Level level) {
+    public void refreshMap(Level level) {
         Map map = level.getMap();
 
         Tile[][] tilesFromMap = map.getGrid();
