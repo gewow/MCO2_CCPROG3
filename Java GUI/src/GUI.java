@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 
 //for images
 import javax.swing.ImageIcon;
@@ -111,6 +112,47 @@ public class GUI {
             }
         }
     }
+
+    public void loadImages(){
+        imageMap = new HashMap<>();
+        try {
+
+            //tiles
+            imageMap.put('#', new ImageIcon("images/wall.png")); //wall is missing
+            imageMap.put('.', new ImageIcon("images/floor.png"));
+            imageMap.put('F', new ImageIcon("images/fire.png"));
+            imageMap.put('W', new ImageIcon("images/water.png"));
+            imageMap.put('E', new ImageIcon("images/exit.png"));
+
+            //items
+            imageMap.put('k', new ImageIcon("images/redKey.png"));
+            imageMap.put('K', new ImageIcon("images/blueKey.png"));
+            imageMap.put('B', new ImageIcon("images/fireboots.png"));
+            imageMap.put('P', new ImageIcon("images/flippers.png"));
+            imageMap.put('M', new ImageIcon("images/Microchip.png"));
+
+            //doors
+            imageMap.put('d', new ImageIcon("images/redDoor.png"));
+            imageMap.put('D', new ImageIcon("images/blueDoor.png"));
+
+            //force floors
+            imageMap.put('^', new ImageIcon("images/forceUp.png"));
+            imageMap.put('>', new ImageIcon("images/forceRight.png"));
+            imageMap.put('<', new ImageIcon("images/forceLeft.png"));
+            imageMap.put('v', new ImageIcon("images/forceDown.png"));
+        } catch(Exception e){
+            System.err.println("Error loading images. Check file paths and image folder");
+            e.printStackTrace();
+            
+            JOptionPane.showMessageDialog(null, "Error loading game images.\n" + e.getMessage(), "Image Load Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void refreshMap(){
+        
+    }
+
+
     public static void main(String[] args) {
         Level currentLevel = new Level(1);
         GUI gui = new GUI(currentLevel);
