@@ -33,7 +33,7 @@ public class GUI {
     private int rows = game.getMap().getWidth();
     private int cols = game.getMap().getHeight();
 
-    public GUI(Level level) {
+    public GUI() {
         frame = new JFrame("Chip's Challenge! 🤓");
         
         //close the app when 'X' is clicked
@@ -80,39 +80,9 @@ public class GUI {
         // non full screen window size
         frame.setSize(800, 800);
 
-        refreshMap(level);
+        refreshMap();
     }
 
-    public void refreshMap(Level level) {
-        Maps map = level.getMap();
-
-        Tile[][] tilesFromMap = map.getGrid();
-
-        // Loop through every position in the map
-        for (int x = 0; x < map.getHeight(); x++) {
-            for (int y = 0; y < map.getWidth(); y++) {
-                Tile t = tilesFromMap[x][y];    // Get the Tile at this position
-                char symbol = t.getSymbol();    // Get its symbol (e.g., '#', '.', 'M', etc.)
-
-                // Set JLabel text to the tile symbol
-                tiles[x][y].setText(String.valueOf(symbol));
-                tiles[x][y].setHorizontalAlignment(JLabel.CENTER); // Center the symbol
-                tiles[x][y].setFont(new Font("Monospaced", Font.BOLD, 20)); // Monospaced font
-
-                // Map tile symbols to background colors
-                switch (symbol) {
-                    case '#': tiles[x][y].setBackground(Color.GRAY); break;  // Wall
-                    case '.': tiles[x][y].setBackground(Color.LIGHT_GRAY); break; // Floor
-                    case 'F': tiles[x][y].setBackground(Color.ORANGE); break;        // Fire
-                    case 'W': tiles[x][y].setBackground(Color.CYAN); break;       // Water
-                    case 'M': tiles[x][y].setBackground(Color.YELLOW); break;     // Microchip
-                    case 'S': tiles[x][y].setBackground(Color.GREEN); break;      // Player start
-                    case 'E': tiles[x][y].setBackground(Color.RED); break;     // Exit
-                    default: tiles[x][y].setBackground(Color.LIGHT_GRAY);         // Fallback
-                }
-            }
-        }
-    }
 
     //loads images into the system once
     public void loadImages(){
@@ -179,11 +149,11 @@ public class GUI {
 
     public static void main(String[] args) {
         Level currentLevel = new Level(1);
-        GUI gui = new GUI(currentLevel);
+        GUI gui = new GUI();
 
         if (currentLevel.isCompleted()) {
             currentLevel = new Level(2);
-            gui.refreshMap(currentLevel);
+            gui.refreshMap();
         }
     }
 }
