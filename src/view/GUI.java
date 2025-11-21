@@ -1,5 +1,6 @@
 package view;
-import model.*;
+import model.Game;
+import model.Level;
 
 //for image dictionary
 import java.util.Map;
@@ -30,38 +31,39 @@ public class GUI {
     private JPanel gridPanel; // panel that holds the grid of tiles
     private JLabel[][] tiles; //2d array of Jlabels representing all tiles
 
-    private int rows = game.getMap().getWidth();
-    private int cols = game.getMap().getHeight();
+    private int rows;
+    private int cols;
 
     public GUI() {
-        frame = new JFrame("Chip's Challenge! 🤓");
-        
-        //close the app when 'X' is clicked
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.game = new Game();
+        this.rows = game.getCurrentLevel().getMap().getHeight();
+        this.cols = game.getCurrentLevel().getMap().getWidth();
+        loadImages();
 
-        // Grid Panel area
+        frame = new JFrame("Chip's Challenge! 🤓");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //close the app when 'X' is clicked
+
 
         // Each cell in the grid will hold one JLabel
         gridPanel = new JPanel(new GridLayout(rows, cols));
         tiles = new JLabel[rows][cols];
 
-        for (int x = 0; x < rows; x++) {
-            for (int y = 0; y < cols; y++) {
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
 
                 JLabel label = new JLabel();
-
-                // Make the label opaque so background color is visible
-                label.setOpaque(true);
+                label.setOpaque(true); // Make the label opaque so background color is visible
 
                 // Add a white border to each label for visual separation
                 label.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+                label.setHorizontalAlignment(JLabel.CENTER);
 
-                // Shade border tiles gray
-                if (x == 0 || x == rows - 1 || y == 0 || y == cols - 1) {
-                    label.setBackground(Color.GRAY);
-                } else {
-                    label.setBackground(Color.LIGHT_GRAY);
-                }
+                // // Shade border tiles gray
+                // if (x == 0 || x == rows - 1 || y == 0 || y == cols - 1) {
+                //     label.setBackground(Color.GRAY);
+                // } else {
+                //     label.setBackground(Color.LIGHT_GRAY);
+                // }
 
                 tiles[x][y] = label;
                 gridPanel.add(label);
@@ -144,6 +146,11 @@ public class GUI {
                 tiles[y][x].setIcon(icon); //use setIcon to paint image on current element
             }
         }
+    }
+
+    
+    public void checkGameState(){
+
     }
 
 

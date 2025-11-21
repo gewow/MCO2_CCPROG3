@@ -42,6 +42,45 @@ public class Game {
         this.isRunning = true;
     }
 
+    /**
+     * Processes the user input and executes depending on the specified character
+     * 
+     * <p>
+     * pre-condition: input is a valid char representing a command
+     * post-condition: the action is performed successfully
+     * </p>
+     * @param input the character input of the player
+     */
+    public void processInput(char input){
+        input = Character.toLowerCase(input);
+        switch (input){
+            case 'w':
+                player.move(input, currentLevel.getMap());
+                break;
+            case 'a':
+                player.move(input, currentLevel.getMap());
+                break;
+            case 's':
+                player.move(input, currentLevel.getMap());
+                break;
+            case 'd':
+                player.move(input, currentLevel.getMap());
+                break;
+            case 'i':
+                break;
+            case 'r':
+                resetGame();
+                break;
+            case 'q':
+                endGame();
+                break;
+            case '!':
+                break;
+            case 'h':                
+                break;
+            default:
+        }
+    }
 
     /**
      * Ends the game and displays the farewell print statement.
@@ -143,46 +182,20 @@ public class Game {
         return player.isAlive();
     }
 
+    public Level getCurrentLevel(){
+        return currentLevel;
+    }
 
-    /**
-     * Processes the user input and executes depending on the specified character
-     * 
-     * <p>
-     * pre-condition: input is a valid char representing a command
-     * post-condition: the action is performed successfully
-     * </p>
-     * @param input the character input of the player
-     */
-    public void processInput(char input){
-        input = Character.toLowerCase(input);
-        switch (input){
-            case 'w':
-                player.move(input, currentLevel.getMap());
-                break;
-            case 'a':
-                player.move(input, currentLevel.getMap());
-                break;
-            case 's':
-                player.move(input, currentLevel.getMap());
-                break;
-            case 'd':
-                player.move(input, currentLevel.getMap());
-                break;
-            case 'i':
-                break;
-            case 'r':
-                resetGame();
-                break;
-            case 'q':
-                endGame();
-                break;
-            case '!':
-                break;
-            case 'h':                
-                break;
-            default:
+    public boolean gameWinCondition(Player player){
+        if (isLevelCompleted(player)){
+            return true;
+        }
+        else{
+            return false; //if the player completes a level but there are more levels
         }
     }
+
+    
     
 }
     
