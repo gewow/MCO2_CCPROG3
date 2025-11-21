@@ -19,6 +19,7 @@ public class Player {
     private Inventory inventory;
     private boolean isAlive;
     private int microchips;
+    private char lastDirection;
 
     /**
      * Constructs a Player object at the given coordinates.
@@ -72,6 +73,9 @@ public class Player {
             this.xPosition = tempX;
             this.yPosition = tempY;
             
+            // sets the direction of the player to lastDirection to determine the past movement (for ice tile mainly)
+            lastDirection = direction;
+
             // After moving, trigger the tile's onPlayerEnter to handle chain reactions
             Tile tile = map.getTile(this.xPosition, this.yPosition);
             if (tile != null) {
@@ -120,6 +124,15 @@ public class Player {
         }
 
         return true;
+    }
+
+    /**
+     * returns the last direction that the player did
+     * 
+     * @return the last direction value in a char type 
+     */
+    public char getLastDirection() {
+        return lastDirection;
     }
 
     /**

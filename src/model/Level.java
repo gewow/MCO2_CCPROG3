@@ -130,6 +130,8 @@ public class Level {
                     case 'W':
                         tiles[x][y] = new WaterTile(x, y, symbol); //water tile
                         break;
+                    case 'I':
+                        tiles[x][y] = new IceTile(x, y, symbol); //ice tile
                     case 'E':
                         this.exitX = x;
                         this.exitY = y;
