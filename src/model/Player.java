@@ -19,6 +19,7 @@ public class Player {
     private Inventory inventory;
     private boolean isAlive;
     private int microchips;
+    private char playerOrientation;
 
     /**
      * Constructs a Player object at the given coordinates.
@@ -52,6 +53,8 @@ public class Player {
     public void move(char direction, Maps map){
         int tempX = this.xPosition;
         int tempY = this.yPosition;
+
+        int dx
         
         switch (direction) {
             case 'w':
@@ -235,5 +238,9 @@ public class Player {
      */
     public Inventory getInventory() {
         return this.inventory;
+    }
+
+    public char getPlayerOrientation(){
+        return playerOrientation;
     }
 }
