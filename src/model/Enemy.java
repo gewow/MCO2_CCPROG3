@@ -73,4 +73,31 @@ public class Enemy {
     public void onPlayerEnter(Player player, Maps map){
             player.killPlayer("caught by the enemy.");
     }
+
+    public int getXPosition(){
+        return this.xPosition;
+    }
+
+    public int getYPosition(){
+        return this.yPosition;
+    }
+
+    public char getDirection(){
+        return direction;
+    }
+
+    public char getSpriteChar(){
+        switch (direction){
+            case 'w':
+                return '↑';
+            case 'a':
+                return '←';
+            case 's':
+                return '↓';
+            case 'd':
+                return '→';
+            default:
+                return ':';
+        }
+    }
 }

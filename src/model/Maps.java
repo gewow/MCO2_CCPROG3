@@ -147,7 +147,7 @@ public class Maps {
      * @return true if the position is valid (in bounds), or false if not
      */
     public boolean isValidPosition(int x, int y) {
-        if (x >= height || y >= width) { 
+        if (x >= width || y >= height) { 
             return false;
         }
         else if (x < 0 || y < 0) {
@@ -174,5 +174,4 @@ public class Maps {
         }
         return null;
     }
-
 }

@@ -134,6 +134,7 @@ public class Level {
                         break;
                     case 'I':
                         tiles[x][y] = new IceTile(x, y, symbol); //ice tile
+                        break;
                     case 'E':
                         this.exitX = x;
                         this.exitY = y;
@@ -241,6 +242,11 @@ public class Level {
     public int getLevelNumber(){
         return levelNumber;
     }
+
+    public ArrayList<Enemy> getEnemies(){
+        return enemies;
+    }
+
     /**
      * Returns the boolean status of isCompleted.
      * 

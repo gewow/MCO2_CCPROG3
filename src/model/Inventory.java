@@ -145,20 +145,12 @@ public class Inventory {
         }
     }
 
-    /**
-     * displays the items in the inventory and their statuses.
-     * 
-     * <p>
-     * Prints and shows the amount of keys of specific type
-     * and the availability of the two types of boots
-     * </p>
-     */
-    public void displayInventory(){
-        System.out.println("Items in Inventory:");
-        System.out.println("Blue Keys = " + blueKeys);
-        System.out.println("Red Keys = " + redKeys);
-        System.out.println("Fireboots = " + (fireBoots ? "Available" : "Not available"));
-        System.out.println("Flippers = " + (flippers ? "Available" : "Not available"));
+    public int getRedKeys(){
+        return redKeys;
+    }
+
+    public int getBlueKeys(){
+        return blueKeys;
     }
 
     /**

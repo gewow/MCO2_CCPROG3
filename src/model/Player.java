@@ -20,6 +20,7 @@ public class Player {
     private boolean isAlive;
     private int microchips;
     private char lastDirection;
+    private char playerOrientation;
 
     /**
      * Constructs a Player object at the given coordinates.
@@ -38,6 +39,7 @@ public class Player {
        this.inventory = new Inventory();
        this.isAlive = true; 
        this.microchips = 0;
+       this.playerOrientation = 's'; //s for south since d is for door already
     }
 
     /**
@@ -53,23 +55,27 @@ public class Player {
     public void move(char direction, Maps map){
         int tempX = this.xPosition;
         int tempY = this.yPosition;
-
-        int dx
+       
         
         switch (direction) {
             case 'w':
                 tempX--;
+                this.playerOrientation = 'u';
                 break;
             case 'a':
                 tempY--;
+                this.playerOrientation = 'l';
                 break;
             case 's':
                 tempX++;
+                this.playerOrientation = 's';
                 break;
             case 'd':
                 tempY++;
+                this.playerOrientation = 'r';
                 break;
         }
+
         
         if (canMoveTo(tempX, tempY, map)){
             this.xPosition = tempX;
@@ -77,6 +83,11 @@ public class Player {
             
             // sets the direction of the player to lastDirection to determine the past movement (for ice tile mainly)
             lastDirection = direction;
+
+            Item item = map.getItemAt(this.xPosition, this.yPosition);
+            if (item != null && !item.getIsCollected()){
+                this.collectItem(item);
+            }
 
             // After moving, trigger the tile's onPlayerEnter to handle chain reactions
             Tile tile = map.getTile(this.xPosition, this.yPosition);

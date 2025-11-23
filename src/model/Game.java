@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * 
  * This represents the main game logic.
@@ -139,6 +141,17 @@ public class Game {
         loadLevel(currentLevelNum, true); // true = reset the current level
     }
 
+    public void updateEnemies(){
+        ArrayList<Enemy> enemies = currentLevel.getEnemies();
+        for (Enemy enemy : enemies) {
+            enemy.move(currentLevel.getMap());
+            if (enemy.getXPosition() == player.getXPosition() &&
+                enemy.getYPosition() == player.getYPosition()){
+                    enemy.onPlayerEnter(player, currentLevel.getMap());
+            }
+        }
+    }
+
 
     public Maps getMap(){
         return currentLevel.getMap();
@@ -186,17 +199,16 @@ public class Game {
         return currentLevel;
     }
 
-    public boolean gameWinCondition(Player player){
-        if (isLevelCompleted(player)){
-            return true;
-        }
-        else{
-            return false; //if the player completes a level but there are more levels
-        }
+    public ArrayList<Enemy> getEnemies(){
+        return currentLevel.getEnemies();
     }
 
-    
-    
+    public boolean gameWinCondition(Player player){
+        if (isLevelCompleted(player) && currentLevelNum >= totalLevels){
+            return true;
+        }
+        return false; //if the player completes a level but there are more levels 
+    } 
 }
     
 
