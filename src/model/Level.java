@@ -1,5 +1,5 @@
 package model;
-
+import java.util.ArrayList;
 /**
  * This represents the levels of the game, containing the visual layout of the map per level and all the other interactive elements.
  * Each level having different layouts as well as the placement and num of microchips, and player start/exit positions.
@@ -21,19 +21,20 @@ public class Level {
     private int width;
     private int height;
     private boolean isCompleted;
+    private ArrayList<Enemy> enemies;
 
     private static final char[][] LEVEL_1_LAYOUT ={
     {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'}, 
     {'#','.','E','.','.','.','#','F','F','F','F','F','F','#','.','.','.','.','.','#'},
     {'#','.','.','.','.','.','d','F','F','F','k','F','F','#','.','.','.','.','.','#'},
     {'#','.','.','.','.','.','#','F','F','F','F','F','F','#','.','.','M','.','.','#'},
-    {'#','#','#','#','#','#','#','F','F','F','F','F','#','#','.','.','.','.','.','#'},
+    {'#','#','#','#','#','#','#','F','F','F','F','F','#','#',';','.','.','.','.','#'},
     {'#','.','.','.','.','.','#','#','#','d','#','#','#','#','.','B','.','.','.','#'},
     {'#','.','.','.','.','.','#','.','.','.','.','.','.','#','.','.','.','.','.','#'},
     {'#','.','.','k','.','.','d','.','.','.','.','.','.','D','.','.','.','.','.','#'},
     {'#','M','.','.','.','.','#','.','k','.','.','K','.','#','.','.','M','.','.','#'},
     {'#','#','#','#','#','#','#','.','.','.','.','.','.','#','.','.','.','.','.','#'},
-    {'#','.','.','.','.','.','#','.','.','.','S','.','.','#','.','.','.','.','.','#'},
+    {'#','.','.','.',':','.','#','.','.','.','S','.','.','#','.','.','.','.','.','#'},
     {'#','.','.','.','.','.','#','.','.','.','.','.','.','#','.','.','.','.','.','#'},
     {'#','M','.','.','.','.','d','.','M','.','.','M','.','#','#','#','#','#','#','#'},
     {'#','.','.','.','.','.','#','.','.','.','.','.','.','#','W','W','W','W','W','#'},
@@ -113,6 +114,7 @@ public class Level {
         Tile[][] tiles = new Tile[this.height][this.width];
         Door[][] doors = new Door[this.height][this.width];
         Item[][] items = new Item[this.height][this.width];
+        enemies = new ArrayList<>();
 
         for (int x = 0; x < height; x++){
             for (int y = 0; y < width; y++){
@@ -130,6 +132,8 @@ public class Level {
                     case 'W':
                         tiles[x][y] = new WaterTile(x, y, symbol); //water tile
                         break;
+                    case 'I':
+                        tiles[x][y] = new IceTile(x, y, symbol); //ice tile
                     case 'E':
                         this.exitX = x;
                         this.exitY = y;
@@ -180,6 +184,14 @@ public class Level {
                         this.playerStartY = y;
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
+                    case ':': // enemy up and down
+                        enemies.add(new Enemy(x, y, 's')); // s starts with down then goes up
+                        tiles[x][y] = new FloorTile(x, y, '.'); 
+                        break;
+                    case ';': // enemy left and right
+                        enemies.add(new Enemy(x, y, 'd')); // s starts with down then goes up
+                        tiles[x][y] = new FloorTile(x, y, '.'); 
+
                 }
             }
         }
