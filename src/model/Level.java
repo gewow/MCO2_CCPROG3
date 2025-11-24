@@ -135,6 +135,8 @@ public class Level {
                     case 'I':
                         tiles[x][y] = new IceTile(x, y, symbol); //ice tile
                         break;
+                    case 'O':
+                        tiles[x][y] = new TeleportTile(x, y, symbol); //water tile
                     case 'E':
                         this.exitX = x;
                         this.exitY = y;
@@ -176,6 +178,9 @@ public class Level {
                         items[x][y] = new Boots(x, y, symbol, "flippers");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
+                    case 'T':
+                        items[x][y] = new Boots(x, y, symbol, "teleportboots");
+                        tiles[x][y] = new FloorTile(x, y, '.');
                     case 'M':
                         items[x][y] = new Microchip(x, y,symbol);
                         tiles[x][y] = new FloorTile(x, y, '.');
@@ -198,6 +203,7 @@ public class Level {
         }
 
         this.map = new Maps(tiles, doors, items, this.width, this.height);
+        this.map.setStartPosition(playerStartX, playerStartY);
     }
 
 

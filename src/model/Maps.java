@@ -14,6 +14,8 @@ public class Maps {
     private Item[][] items;
     private int width;
     private int height;
+    private int startX;
+    private int startY;
     
     
     /**
@@ -72,6 +74,11 @@ public class Maps {
         this.grid[x][y] = tile;
     }
 
+    public void setStartPosition(int x, int y) {
+        this.startX = x;
+        this.startY = y;
+    }   
+
     /** 
      * Returns the map width.
      * 
@@ -87,7 +94,14 @@ public class Maps {
     public int getHeight(){
         return this.height;
     }
+
+    public int getPlayerStartX() {
+        return startX;
+    }
     
+    public int getPlayerStartY() {
+        return startY;
+    }
     /**
      * Returns a specific door.
      * 

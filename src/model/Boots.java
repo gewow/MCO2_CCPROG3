@@ -36,7 +36,7 @@ public class Boots extends Item{
 
    
     /**
-     * Returns the type of boots (Either Flippers or fireboots).
+     * Returns the type of boots (Either Flippers, fireboots, or teleportboots).
      * 
      * <p>
      * pre-condition: Boots should be instantiated
