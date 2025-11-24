@@ -18,7 +18,7 @@ public class Inventory {
     private int redKeys;
     private boolean flippers;
     private boolean fireBoots;
-    private boolean teleportboots;
+    private boolean teleportBoots;
 
     /**
      * Constructs an empty inventory.
@@ -30,6 +30,7 @@ public class Inventory {
         this.redKeys = 0;
         this.flippers = false;
         this.fireBoots = false;
+        this.teleportBoots = false;
     }
 
     /**
@@ -121,8 +122,8 @@ public class Inventory {
         else if (boots.getType().equals("flippers")){
             flippers = true;
         }
-        else if (boots.getType().equals("flippers")) {
-            teleportboots = true;
+        else if (boots.getType().equals("teleportboots")) {
+            teleportBoots = true;
         }
         boots.setIsCollected(true);
     }
@@ -145,7 +146,7 @@ public class Inventory {
             return fireBoots;
         }
         else if (type.equals("teleportboots")) {
-            return teleportboots;
+            return teleportBoots;
         }
         else{
             return false;
@@ -173,7 +174,7 @@ public class Inventory {
         redKeys = 0;
         fireBoots = false;
         flippers = false;
-        teleportboots = false;
+        teleportBoots = false;
     }
 
 }
