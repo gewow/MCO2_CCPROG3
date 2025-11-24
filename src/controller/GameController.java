@@ -20,9 +20,7 @@ public class GameController extends KeyAdapter{
         char keyChar = e.getKeyChar();
         game.processInput(keyChar); //update model
         gui.refreshMap(); //update GUI
-
-        //check if any of the following happened and apply changes
-        gui.checkGameState();
+        gui.checkGameState(); //check what is happening to player
         }
 
 }
