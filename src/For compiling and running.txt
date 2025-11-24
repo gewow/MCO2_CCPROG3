@@ -1,0 +1,3 @@
+Run from src
+Compiling: javac model/*.java view/*.java controller/*.java main/Main.java
+Running: java main.Main

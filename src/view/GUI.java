@@ -11,8 +11,9 @@ import java.util.HashMap;
 
 import java.awt.GridLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-
+import java.awt.event.ActionListener;
 //for keyboard listener
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,7 @@ import javax.swing.Box;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 
 //for images
 import javax.swing.ImageIcon;
@@ -46,6 +48,7 @@ public class GUI {
     private JLabel chipsLabel;
     private JLabel keysLabel;
     private JLabel bootsLabel;
+    private JButton restartButton;
 
 
     public GUI(Game game) {
@@ -72,13 +75,6 @@ public class GUI {
                 label.setBorder(BorderFactory.createLineBorder(Color.WHITE));
                 label.setHorizontalAlignment(JLabel.CENTER);
 
-                // // Shade border tiles gray
-                // if (x == 0 || x == rows - 1 || y == 0 || y == cols - 1) {
-                //     label.setBackground(Color.GRAY);
-                // } else {
-                //     label.setBackground(Color.LIGHT_GRAY);
-                // }
-
                 tiles[x][y] = label;
                 gridPanel.add(label);
             }
@@ -86,7 +82,7 @@ public class GUI {
 
 
 
-        //Inventory Panel Code
+        //Inventory Panel 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setBackground(Color.DARK_GRAY);
@@ -97,6 +93,7 @@ public class GUI {
         chipsLabel = new JLabel("Chips: 0/7");
         keysLabel = new JLabel("Keys: R:0 B:0");
         bootsLabel = new JLabel("Boots: None");
+        restartButton = new JButton("RESTART");
 
         levelLabel.setForeground(Color.WHITE);
         chipsLabel.setForeground(Color.WHITE);
@@ -107,6 +104,14 @@ public class GUI {
         chipsLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
         keysLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
         bootsLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+        restartButton.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+
+        restartButton.setBackground(Color.GRAY);
+        restartButton.setForeground(Color.BLACK);
+        restartButton.setFont(new Font("Arial", Font.BOLD, 14));
+        restartButton.setPreferredSize(new Dimension(150, 40));
+        restartButton.setFocusable(false);
+        
 
         infoPanel.add(levelLabel);
         infoPanel.add(Box.createVerticalStrut(10));
@@ -115,6 +120,8 @@ public class GUI {
         infoPanel.add(keysLabel);
         infoPanel.add(Box.createVerticalStrut(5));
         infoPanel.add(bootsLabel);
+        infoPanel.add(Box.createVerticalStrut(15));
+        infoPanel.add(restartButton);
         infoPanel.add(Box.createVerticalGlue());
 
         frame.setLayout(new java.awt.BorderLayout());
@@ -149,6 +156,14 @@ public class GUI {
         frame.requestFocusInWindow();
     }
 
+    public void attachRestartButton(ActionListener listener){
+        restartButton.addActionListener(listener);
+    }
+
+    public void requestFocusToFrame(){
+        frame.requestFocusInWindow();
+    }
+
     public void checkCollisions(){
         for (Enemy enemy : game.getEnemies()){
             if (enemy.getXPosition() == game.getPlayer().getXPosition() &&
@@ -157,6 +172,7 @@ public class GUI {
                 }
         }
     }
+    
 
 
     //loads images into the system once
@@ -168,6 +184,12 @@ public class GUI {
             imageMap.put('s', new ImageIcon("resources/characters/chipStanding.png")); //s for south
             imageMap.put('l', new ImageIcon("resources/characters/chipLeft.png"));
             imageMap.put('r', new ImageIcon("resources/characters/chipRight.png"));
+            imageMap.put('1', new ImageIcon("resources/characters/drown.png")); 
+            imageMap.put('2', new ImageIcon("resources/characters/burn.png"));
+            imageMap.put('3', new ImageIcon("resources/characters/chipSwimRight.png"));
+            imageMap.put('4', new ImageIcon("resources/characters/chipSwimLeft.png"));
+            imageMap.put('5', new ImageIcon("resources/characters/chipSwimForward.png"));
+            imageMap.put('6', new ImageIcon("resources/characters/chipSwim.png"));
 
             //enemy 
             imageMap.put('↑', new ImageIcon("resources/characters/monsterUp.png"));
@@ -176,11 +198,14 @@ public class GUI {
             imageMap.put('→', new ImageIcon("resources/characters/monsterRight.png"));
 
             //tiles
-            imageMap.put('#', new ImageIcon("resources/tiles/wall.png")); //wall is missing
+            imageMap.put('#', new ImageIcon("resources/tiles/wall.png")); 
             imageMap.put('.', new ImageIcon("resources/tiles/floor.png"));
             imageMap.put('F', new ImageIcon("resources/tiles/fire.png"));
             imageMap.put('W', new ImageIcon("resources/tiles/water.png"));
             imageMap.put('E', new ImageIcon("resources/tiles/exitEnabled.png"));
+            imageMap.put('O', new ImageIcon("resources/tiles/teleporterUnlocked.png"));
+            imageMap.put('I', new ImageIcon("resources/tiles/ice.png"));
+
 
             //items
             imageMap.put('k', new ImageIcon("resources/items/redKey.png"));
@@ -188,6 +213,7 @@ public class GUI {
             imageMap.put('B', new ImageIcon("resources/items/fireboots.png"));
             imageMap.put('P', new ImageIcon("resources/items/flippers.png"));
             imageMap.put('M', new ImageIcon("resources/items/Microchip.png"));
+            imageMap.put('T', new ImageIcon("resources/items/teleporterBoots.png"));
 
             //doors
             imageMap.put('d', new ImageIcon("resources/doors/redDoor.png"));
@@ -260,6 +286,10 @@ public class GUI {
         if (inv.hasBoots("fireboots")){
             boots += "Fireboots ";
         }
+
+        if (inv.hasBoots("teleportboots")){
+            boots += "teleportboots";
+        }
         
         bootsLabel.setText("Boots: " + (boots.isEmpty() ? "None" : boots));
     }
@@ -272,7 +302,7 @@ public class GUI {
 
             currentLevel = game.getCurrentLevel().getLevelNumber();
             if (currentLevel < 2){
-                choice = JOptionPane.showConfirmDialog(frame, "level ", + currentLevel + " Complete! Proceed to next level?", JOptionPane.YES_NO_OPTION);
+                choice = JOptionPane.showConfirmDialog(frame, "level " + currentLevel + " Complete! Proceed to next level?", "Level Complete!", JOptionPane.YES_NO_OPTION);
 
                 if (choice == JOptionPane.YES_OPTION){
                     game.nextLevel();
@@ -291,7 +321,9 @@ public class GUI {
         if (!game.isPlayerAlive()){
             gameTimer.stop();
 
-            choice = JOptionPane.showConfirmDialog(frame, "You dies! Restart level?", "Game Over", JOptionPane.YES_NO_OPTION);
+
+
+            choice = JOptionPane.showConfirmDialog(frame, "You died! Restart level?", "Game Over", JOptionPane.YES_NO_OPTION);
 
             if (choice == JOptionPane.YES_OPTION){
                 game.resetGame();

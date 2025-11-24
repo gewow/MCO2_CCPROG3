@@ -60,19 +60,39 @@ public class Player {
         switch (direction) {
             case 'w':
                 tempX--;
-                this.playerOrientation = 'u';
+                if ((tempX == map.getTile(tempX, tempY).getXPosition() && tempY == map.getTile(tempX, tempY).getYPosition()) && map.getTile(tempX, tempY).getSymbol() == 'W'){
+                    this.playerOrientation = '5';
+                }
+                else{
+                    this.playerOrientation = 'u';
+                }
                 break;
             case 'a':
                 tempY--;
-                this.playerOrientation = 'l';
+                if ((tempX == map.getTile(tempX, tempY).getXPosition() && tempY == map.getTile(tempX, tempY).getYPosition()) && map.getTile(tempX, tempY).getSymbol() == 'W'){
+                    this.playerOrientation = '4';
+                }
+                else{
+                    this.playerOrientation = 'l';
+                }
                 break;
             case 's':
                 tempX++;
-                this.playerOrientation = 's';
+                if ((tempX == map.getTile(tempX, tempY).getXPosition() && tempY == map.getTile(tempX, tempY).getYPosition()) && map.getTile(tempX, tempY).getSymbol() == 'W'){
+                    this.playerOrientation = '6';
+                }
+                else{
+                    this.playerOrientation = 's';
+                }
                 break;
             case 'd':
                 tempY++;
-                this.playerOrientation = 'r';
+                if ((tempX == map.getTile(tempX, tempY).getXPosition() && tempY == map.getTile(tempX, tempY).getYPosition()) && map.getTile(tempX, tempY).getSymbol() == 'W'){
+                    this.playerOrientation = '3';
+                }
+                else{
+                    this.playerOrientation = 'r';
+                }
                 break;
         }
 
@@ -192,8 +212,13 @@ public class Player {
      * @param reason the specific reason for the death
      */
     public void killPlayer(String reason){
+        if (reason == "drowned"){
+            playerOrientation = '1';
+        }
+        else if (reason == "caught on fire"){
+            playerOrientation = '2';
+        }
         this.isAlive = false;
-        System.out.println("You " + reason + "!");
     }
 
     /**

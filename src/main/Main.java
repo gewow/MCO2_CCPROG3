@@ -12,5 +12,6 @@ public class Main {
         GameController controller = new GameController(game, gui);
 
         gui.attachKeyListener(controller);
+        gui.attachRestartButton(controller);
     }
 }
