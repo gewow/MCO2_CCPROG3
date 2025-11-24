@@ -169,7 +169,7 @@ public class GUI {
             imageMap.put('l', new ImageIcon("resources/characters/chipLeft.png"));
             imageMap.put('r', new ImageIcon("resources/characters/chipRight.png"));
 
-            //enemy CHANGE direction char?!? 
+            //enemy 
             imageMap.put('↑', new ImageIcon("resources/characters/monsterUp.png"));
             imageMap.put('↓', new ImageIcon("resources/characters/monster.png")); //s for south
             imageMap.put('←', new ImageIcon("resources/characters/monsterLeft.png"));
@@ -180,7 +180,7 @@ public class GUI {
             imageMap.put('.', new ImageIcon("resources/tiles/floor.png"));
             imageMap.put('F', new ImageIcon("resources/tiles/fire.png"));
             imageMap.put('W', new ImageIcon("resources/tiles/water.png"));
-            imageMap.put('E', new ImageIcon("resources/tiles/exit.png"));
+            imageMap.put('E', new ImageIcon("resources/tiles/exitEnabled.png"));
 
             //items
             imageMap.put('k', new ImageIcon("resources/items/redKey.png"));
@@ -237,10 +237,11 @@ public class GUI {
                     }
                 }
 
-                ImageIcon icon =imageMap.get(symbol); //store the image extracted from dictionary as icon
+                ImageIcon icon = imageMap.get(symbol); //store the image extracted from dictionary as icon
                 tiles[y][x].setIcon(icon); //use setIcon to paint image on current element
             }
         }
+        updateInfoPanel();
     }
 
     public void updateInfoPanel(){
