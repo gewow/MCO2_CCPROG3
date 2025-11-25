@@ -1,3 +1,4 @@
-Run from src
-Compiling: javac model/*.java view/*.java controller/*.java main/Main.java
-Running: java main.Main
+1. needs to be run from src
+2. Compiling: javac model/*.java view/*.java controller/*.java main/Main.java
+3. Running: java main.Main
+4. If there are any redline errors on the package the ctrl + shift + p then Java: Clean Java Language Server Workspace
