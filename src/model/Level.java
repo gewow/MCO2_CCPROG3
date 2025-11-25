@@ -5,8 +5,8 @@ import java.util.ArrayList;
  * Each level having different layouts as well as the placement and num of microchips, and player start/exit positions.
  * 
  * @author Melangelo Guanzon 
- * @author Anton Galido
- * @version 1.0
+ * @author Anton Luis Galido
+ * @version 1.1
  */
 
 public class Level {
@@ -107,7 +107,7 @@ public class Level {
      * 
      * <p>
      * pre-condition: layout array must be initialized
-     * post-condition: map is created with tiles, doors, keys, boots, and microchips
+     * post-condition: map is created with tiles, doors, keys, boots, characters, and microchips
      * </p>
      */
     public void createMap(){
@@ -155,39 +155,39 @@ public class Level {
                     case 'v':
                         tiles[x][y] = new ForceFloor(x, y, symbol, "Down"); //Force floor - down
                         break;
-                    case 'd':
+                    case 'd': // red door
                         doors[x][y] = new Door(x, y, "red", symbol);
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
-                    case 'D':
+                    case 'D': // blue door
                         doors[x][y] = new Door(x, y, "blue", symbol);
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
-                    case 'k':
+                    case 'k': // red key
                         items[x][y] = new Key(x, y, symbol, "red");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
-                    case 'K':
+                    case 'K': // blue key
                         items[x][y] = new Key(x, y, symbol, "blue");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
-                    case 'B':
+                    case 'B': // fire boots
                         items[x][y] = new Boots(x, y, symbol, "fireboots");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
-                    case 'P':
+                    case 'P': // flippers
                         items[x][y] = new Boots(x, y, symbol, "flippers");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
-                    case 'T':
+                    case 'T': // teleport boots
                         items[x][y] = new Boots(x, y, symbol, "teleportboots");
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
-                    case 'M':
+                    case 'M': // microchips
                         items[x][y] = new Microchip(x, y,symbol);
                         tiles[x][y] = new FloorTile(x, y, '.');
                         break;
-                    case 'S':
+                    case 'S': 
                         this.playerStartX = x;
                         this.playerStartY = y;
                         tiles[x][y] = new FloorTile(x, y, '.');
@@ -251,6 +251,11 @@ public class Level {
         return levelNumber;
     }
 
+    /**
+     * Returns the list of enemies present in the current level.
+     * 
+     * @return ArrayList containing all enemy objects in the level.
+     */
     public ArrayList<Enemy> getEnemies(){
         return enemies;
     }

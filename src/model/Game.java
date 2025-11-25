@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Melangelo Guazon
  * @author Anton Galido
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class Game {
     private Level currentLevel;
@@ -103,8 +103,8 @@ public class Game {
      * pre-condition: level number should be greater than 0 and no more than 2
      * post-condition: current level is set to the specified and player is reset
      * </p>
-     * @param levelNumber the specific level num to be loaded
-     * @param resetLevel whether to reset the level (true for restart, false for first time)
+     * @param levelNumber the specific level num to be loaded.
+     * @param resetLevel whether to reset the level (true for restart, false for first time).
      */
     public void loadLevel(int levelNumber, boolean resetLevel){
         this.currentLevel = levels[levelNumber-1];
@@ -119,8 +119,8 @@ public class Game {
     /**
      * Moves to the next level.
      * <p>
-     * pre-condition: current level is less than totalLevels
-     * post-condition: current level number is incremented then next level is loaded
+     * pre-condition: current level is less than totalLevels.
+     * post-condition: current level number is incremented then next level is loaded.
      * </p>
      */
     public void nextLevel(){
@@ -141,6 +141,9 @@ public class Game {
         loadLevel(currentLevelNum, true); // true = reset the current level
     }
 
+    /**
+     * Updates the enemy position and applies any effect on the player.
+     */
     public void updateEnemies(){
         ArrayList<Enemy> enemies = currentLevel.getEnemies();
         for (Enemy enemy : enemies) {
@@ -152,15 +155,28 @@ public class Game {
         }
     }
 
-
+    /**
+     * Returns the map of the current level.
+     * 
+     * @return map object.
+     */
     public Maps getMap(){
         return currentLevel.getMap();
     }
 
+    /**
+     * Returns the player object.
+     * @return player object.
+     */
     public Player getPlayer(){
         return player;
     }
 
+    /**
+     * Checks if the game is running.
+     * 
+     * @return true if yes, false if not.
+     */
     public boolean isRunning(){
         return isRunning;
     }
@@ -172,6 +188,8 @@ public class Game {
      * pre-condition: currentLevel and player should be initialized
      * post-condition: collected all microchips and enters the exit tile
      * </p>
+     * 
+     * @param player the player to be assessed.
      * @return true if win condition is met, false otherwise
      */
     public boolean isLevelCompleted(Player player){
@@ -185,24 +203,45 @@ public class Game {
      * pre-condition: player should be initialized
      * post-condition: player is dead in the current game
      * </p>
-     * @return true if lose condition is met, false otherwise
+     * @return true if lose condition is met, false otherwise.
      */
     public boolean checkLoseCondition(){
         return !isPlayerAlive();
     }
 
+    /**
+     * Checks if player is alive.
+     * 
+     * @return true if yes, false if not.
+     */
     public boolean isPlayerAlive(){
         return player.isAlive();
     }
 
+    /**
+     * Gets the current level.
+     * 
+     * @return the current level object.
+     */
     public Level getCurrentLevel(){
         return currentLevel;
     }
 
+    /**
+     * Returns a list of enemies in the current level.
+     * 
+     * @return list of enemy objects.
+     */
     public ArrayList<Enemy> getEnemies(){
         return currentLevel.getEnemies();
     }
 
+    /** 
+     * Checks if the player has won the game.
+     * 
+     * @param player the player to be assessed.
+     * @return true if yes, false if not.
+     * */ 
     public boolean gameWinCondition(Player player){
         if (isLevelCompleted(player) && currentLevelNum >= totalLevels){
             return true;

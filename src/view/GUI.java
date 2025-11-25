@@ -1,3 +1,4 @@
+
 package view;
 
 import model.Enemy;
@@ -31,6 +32,21 @@ import javax.swing.JButton;
 //for images
 import javax.swing.ImageIcon;
 
+/**
+ * this GUI class handles the graphical interface for our Chip's challenge game.
+ * 
+ * <p>
+ * Displays the game map, player, enemies, items, and ingame stats. 
+ * Updates the display according to the game state.
+ * </p>
+ * 
+ * @version 1.0
+ * 
+ * @author Melangelo Guanzon
+ * @author Anton Luis Galido
+ * 
+ * 
+ */
 public class GUI {
 
     private Timer gameTimer;
@@ -50,7 +66,15 @@ public class GUI {
     private JLabel bootsLabel;
     private JButton restartButton;
 
-
+    /**
+     * Constructs the GUI and initializes all of the components.
+     * 
+     * <p>
+     * precondition: game object is initialized.
+     * postcondition: JFrame and all panels/labels are initialized
+     * </p>
+     * @param game the game model controlling all the game logic.
+     */
     public GUI(Game game) {
         this.game = game;
         this.rows = game.getCurrentLevel().getMap().getHeight();
@@ -150,20 +174,52 @@ public class GUI {
         gameTimer.start();
     }
 
+    /**
+     * Attaches a keyboard listener to the main frame.
+     * 
+     * <p>
+     * precondition: listener is not null
+     * postcondition: listener is added to frame  and focus is requested.
+     * </p>
+     * 
+     * @param listener the keyAdapter handling the keyboard input.
+     */
     public void attachKeyListener(KeyAdapter listener){
         frame.addKeyListener(listener);
         frame.setFocusable(true);
         frame.requestFocusInWindow();
     }
 
+    /**
+     * Attaches an ActionListener to the restart button.
+     * 
+     * <p>
+     * precondition: listener is not null.
+     * postcondition: restart button is triggered when listener is clicked.
+     * </p>
+     * 
+     * @param listener this is the ActionListener that's triggered when restart is clicked.
+     */
     public void attachRestartButton(ActionListener listener){
         restartButton.addActionListener(listener);
     }
 
+    /**
+     * Request focus for the main window so that the keyboard inputis captured.
+     */
     public void requestFocusToFrame(){
         frame.requestFocusInWindow();
     }
 
+    /**
+     * Checks if there's a collision between the player and enemy
+     * 
+     * <p>
+     * Pre-condition: game and player initialized  
+     * Post-condition: player is killed if collision detected.
+     * </p>
+     * 
+     */
     public void checkCollisions(){
         for (Enemy enemy : game.getEnemies()){
             if (enemy.getXPosition() == game.getPlayer().getXPosition() &&
@@ -175,7 +231,11 @@ public class GUI {
     
 
 
-    //loads images into the system once
+    /**
+     * Loads all the images to the image dictionary.
+     * 
+     * This is the logic that maps the character Array from previous MCO project, to image icons.
+     */
     public void loadImages(){
         imageMap = new HashMap<>();
         try {
@@ -232,6 +292,14 @@ public class GUI {
         }
     }
 
+    /**
+     * Redraws the game grid depending on the current map state including all items, the player, enemies, etc.
+     * 
+     * <p>
+     * precondition: game and map initialized
+     * postcondition: gridPanel displays updated tiles , characters, items
+     * </p>
+     */
     public void refreshMap(){
         char symbol = '.';
 
@@ -270,6 +338,9 @@ public class GUI {
         updateInfoPanel();
     }
 
+    /**
+     * Updates the information panel that shows chips, boots, keys, and level num.
+     */
     public void updateInfoPanel(){
         Inventory inv = game.getPlayer().getInventory();
         String boots = "";
@@ -294,7 +365,16 @@ public class GUI {
         bootsLabel.setText("Boots: " + (boots.isEmpty() ? "None" : boots));
     }
 
-    
+    /**
+     * Checks whether the player finished the level or died.
+     * 
+     * Then displays the appropriate messages and handles level transitions or even reset.
+     * 
+     * <p>
+     * Pre-condition: game is running  
+     * </p>
+     * 
+     */
     public void checkGameState(){
         int currentLevel, choice;
         if (game.isLevelCompleted(game.getPlayer())){

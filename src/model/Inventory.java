@@ -10,7 +10,8 @@ package model;
  * </p>
  * 
  * @author Melangelo Guanzon
- * @version 1.0
+ * @author Anton Luis Galido
+ * @version 1.1
  * 
  */
 public class Inventory {
@@ -153,10 +154,18 @@ public class Inventory {
         }
     }
 
+    /**
+     * Returns the number of red keys in inventory.
+     * @return the red key count.
+     */
     public int getRedKeys(){
         return redKeys;
     }
 
+    /**
+     * Returns the number of blue keys in inventory.
+     * @return the blue key count.
+     */
     public int getBlueKeys(){
         return blueKeys;
     }

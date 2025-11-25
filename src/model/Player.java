@@ -174,7 +174,7 @@ public class Player extends Characters{
      * pre-condition: item is valid and NOT null
      * post-condition: item is added to inventory and set as collected
      * </p>
-     * @param boot the boots being collected
+     * @param item the item being collected.
      */
     public void collectItem(Item item){
         if (item != null && !item.getIsCollected()){
@@ -182,7 +182,10 @@ public class Player extends Characters{
         }
     }
 
-
+    /**
+     * Increments the player's microchip count.
+     * 
+     */
     public void addMicrochips(){
         this.microchips++;
     }
@@ -211,10 +214,10 @@ public class Player extends Characters{
      * @param reason the specific reason for the death
      */
     public void killPlayer(String reason){
-        if (reason == "drowned"){
+        if ("drowned".equals(reason)){
             playerOrientation = '1';
         }
-        else if (reason == "caught on fire"){
+        else if ("caught on fire".equals(reason)){
             playerOrientation = '2';
         }
         this.isAlive = false;
@@ -252,6 +255,10 @@ public class Player extends Characters{
     /**
      * Sets the position of the player based on the specified coordinates.
      * 
+     * <p>
+     * precondition: coordinates are within map bounds.
+     * postcondition: x and y coordinates are updated.
+     * </p>
      * @param x x coordinate of player
      * @param y y coordinate of the player
      * 
@@ -270,6 +277,15 @@ public class Player extends Characters{
         return this.inventory;
     }
 
+    /**
+     * Returns the current orientation of the player.
+     * 
+     * <p>
+     * precondition: player is initialzied.
+     * postcondition: returns the character representing the player's orientation.
+     * ,/p>
+     * @return the player's orientation
+     */
     public char getPlayerOrientation(){
         return playerOrientation;
     }

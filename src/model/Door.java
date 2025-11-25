@@ -20,7 +20,7 @@ public class Door implements EffectOnPlayer{
     private char symbol;
     
     /**
-     * Constructs sa new door object with a specified coordinate, color and symbol
+     * Constructs a new door object with a specified coordinate, color and symbol
      * 
      * @param xPosition the x coordinate of the Door
      * @param yPosition the y coordinate of the Door

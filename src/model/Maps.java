@@ -6,7 +6,7 @@ package model;
  * 
  * @author Melangelo Guanzon
  * @author Anton Galido
- * @version 1.0
+ * @version 1.1
  */
 public class Maps {
     private Tile[][] grid;
@@ -26,8 +26,6 @@ public class Maps {
      * @param items 2D array representing the different items on the map (Microchips, keys, boots)
      * @param width map width
      * @param height map height
-     * @param startX starting x position of the player
-     * @param startY starting y position of the player
      * 
      */
     public Maps(Tile[][] grid, Door[][] doors, Item[][] items, int width, int height) {
@@ -55,6 +53,16 @@ public class Maps {
     }
 
     // for GUI to access all tiles to connect default ui to GUI
+    /**
+     * Returns the 2D array of tiles representing the level's grid.
+     * 
+     * <p>
+     * This grid can be accessed by the GUI to display the map and connect 
+     * the default UI to the new graphical interface.
+     * </p>
+     * 
+     * @return a 2D array of tile objects. 
+     */
     public Tile[][] getGrid() {
         return this.grid;
     }
@@ -74,6 +82,16 @@ public class Maps {
         this.grid[x][y] = tile;
     }
 
+    /**
+     * Sets the start position of the player on the map.
+     * 
+     * <p>
+     * This is primarily for the teleport tile feature to set them back.
+     * </p>
+     * 
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
     public void setStartPosition(int x, int y) {
         this.startX = x;
         this.startY = y;
@@ -95,10 +113,20 @@ public class Maps {
         return this.height;
     }
 
+    /**
+     * Returns the starting x coordinate in the map
+     * 
+     * @return x coordinate
+     */
     public int getPlayerStartX() {
         return startX;
     }
     
+    /**
+     * Returns the starting y coordinate in the map
+     * 
+     * @return y coordinate
+     */
     public int getPlayerStartY() {
         return startY;
     }
@@ -136,7 +164,16 @@ public class Maps {
         return this.doors;
     }
 
-    
+    /**
+     * Removes an item from the map after it's collected.
+     * 
+     * @param item the item to be removed.
+     * 
+     * <p>
+     * precondition: the item exists on the map.
+     * postcondition: Item is marked as collected and the corresponding tile is replaced.
+     * </p>
+     */
     public void removeItem(Item item){
         int x = item.getXPosition();
         int y = item.getYPosition();
@@ -173,6 +210,11 @@ public class Maps {
     
     /** 
      * Returns the position of the Exit tile.
+     * 
+     * <p>
+     * Pre-condition: Grid is initialized and populated with Tile objects.  
+     * Post-condition: Returns the Tile representing the exit if found, therwise returns null.
+     * </p>
      * 
      * @return the tile object representing the exit, null if it's not found
      */

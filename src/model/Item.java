@@ -1,11 +1,32 @@
 package model;
 
+/**
+ * Represents the general items in the game that the player can collect.
+ * 
+ * <p>
+ * Each item has their own positions, symbols, and collected status.
+ * </p>
+ * 
+ * @author Melangelo Guanzon
+ * @version 1.0
+ */
 public abstract class Item {
     private int xPosition;
     private int yPosition;
     private boolean isCollected;
     private char symbol;
 
+    /**
+     * Constructs an Item with a specified position and symbol.
+     * 
+     * <p>
+     * The item is not initially set as collected.
+     * </p>
+     * 
+     * @param xPosition x coordinate
+     * @param yPosition y coordinate
+     * @param symbol the character representing an item on the map.
+     */
     public Item(int xPosition, int yPosition, char symbol){
         this.xPosition = xPosition;
         this.yPosition = yPosition;
@@ -13,6 +34,15 @@ public abstract class Item {
         this.isCollected = false;
     }
 
+    /**
+     * Handles the effect when the player picks up an item ingame.
+     *  
+     * <p>
+     * pre-condition: the player object is initialized and has a valid inventory
+     * post-condition: the boots are added to the player's inventory and marked collected
+     * </p>
+     * @param player the player itself.
+     */
     public abstract void onPlayerPickup(Player player);
 
     /**

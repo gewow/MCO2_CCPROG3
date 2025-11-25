@@ -28,6 +28,15 @@ public class Boots extends Item{
         this.type = type;
     }
     
+    /**
+     * Handles the interaction when player picks up the boots.
+     * 
+     * <p>
+     * Adds the picked up boots to the inventory and set isCollected to TRUE.
+     * </p>
+     * 
+     * @param player the player interacting with the boots.
+     */
     @Override
     public void onPlayerPickup(Player player){
         player.getInventory().addBoots(this);

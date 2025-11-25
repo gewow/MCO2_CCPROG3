@@ -31,6 +31,10 @@ public class Key extends Item{
         this.color = color;
     }
 
+    /**
+     * Handles the effect when the player picks up a key ingame.
+     * @param player the player itself.
+     */
     @Override
     public void onPlayerPickup(Player player){
         player.getInventory().addKey(this);
