@@ -13,9 +13,7 @@ package model;
  * @version 1.0
  */
 
-public class Player {
-    private int xPosition;
-    private int yPosition;
+public class Player extends Character{
     private Inventory inventory;
     private boolean isAlive;
     private int microchips;
@@ -34,8 +32,7 @@ public class Player {
      * 
      */
     public Player(int xPosition, int yPosition){
-       this.xPosition = xPosition;
-       this.yPosition = yPosition;
+       super(xPosition, yPosition);
        this.inventory = new Inventory();
        this.isAlive = true; 
        this.microchips = 0;
@@ -52,6 +49,7 @@ public class Player {
      * @param direction the specific direction where the player could move
      * @param map the map being played on
      */
+    @Override
     public void move(char direction, Maps map){
         int tempX = this.xPosition;
         int tempY = this.yPosition;
@@ -134,6 +132,7 @@ public class Player {
      * @param map the map being played on
      * @return true if allowed, false otherwise
      */
+    @Override 
     public boolean canMoveTo(int x, int y, Maps map){
         //use the map's isValidPosition method to check if the player is moving within the coordinates of the map
         if (!map.isValidPosition(x, y)){
@@ -249,23 +248,6 @@ public class Player {
         return this.isAlive;
     }
 
-    /**
-     * Gets the x coordinate of the player.
-     * 
-     * @return the specific value of the x coordinate
-     */
-    public int getXPosition(){
-        return this.xPosition;
-    }
-
-    /**
-     * Gets the y coordinate of the player.
-     * 
-     * @return the specific value of the y coordinate
-     */
-    public int getYPosition(){
-        return this.yPosition;
-    }
 
     /**
      * Sets the position of the player based on the specified coordinates.

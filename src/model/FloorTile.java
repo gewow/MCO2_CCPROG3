@@ -9,9 +9,4 @@ public class FloorTile extends Tile{
     public boolean canPlayerEnter(Player player){
         return true;
     }
-
-    @Override
-    public void onPlayerEnter(Player player, Maps map){
-       //
-    }
 }

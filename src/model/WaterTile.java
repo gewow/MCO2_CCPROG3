@@ -1,6 +1,6 @@
 package model;
 
-public class WaterTile extends Tile{
+public class WaterTile extends Tile implements EffectOnPlayer{
     public WaterTile(int xPosition, int yPosition, char symbol){
         super(xPosition, yPosition, symbol);
     }

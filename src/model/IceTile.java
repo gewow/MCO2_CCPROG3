@@ -1,6 +1,6 @@
 package model;
 
-public class IceTile extends Tile{
+public class IceTile extends Tile implements EffectOnPlayer{
 
     public IceTile(int xPosition, int yPosition, char symbol){
         super(xPosition, yPosition, symbol);

@@ -1,6 +1,6 @@
 package model;
 
-public class ForceFloor extends Tile{
+public class ForceFloor extends Tile implements EffectOnPlayer{
     private String direction;
 
     public ForceFloor(int xPosition, int yPosition, char symbol, String direction){
@@ -29,5 +29,9 @@ public class ForceFloor extends Tile{
                 player.move('a', map);
                 break;
         }
+    }
+
+    public String getDirection(){
+        return direction;
     }
 }

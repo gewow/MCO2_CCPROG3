@@ -1,21 +1,19 @@
 package model;
 
-public class Enemy {
-    private int xPosition;
-    private int yPosition;
+public class Enemy extends Character implements EffectOnPlayer{
     private char direction;
 
     public Enemy(int xPosition, int yPosition, char direction) {
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
+        super(xPosition, yPosition);
         this.direction = direction;
     }
 
-    public void move(Maps map) {
+    @Override
+    public void move(char direction, Maps map) {
         int nextX = this.xPosition;
         int nextY = this.yPosition;
 
-        switch(direction) {
+        switch(this.direction) {
             case 'w':
                 nextX--;
                 break;
@@ -30,25 +28,26 @@ public class Enemy {
                 break;
         }
 
-         if (canMoveTo(nextX, nextY, map)){
+        if (canMoveTo(nextX, nextY, map)){
             this.xPosition = nextX;
             this.yPosition = nextY;
         }
         else {
             // reverses direction
-            switch(direction) {
-                case 'w': direction = 's'; 
+            switch(this.direction) {
+                case 'w': this.direction = 's'; 
                 break;
-                case 'a': direction = 'd'; 
+                case 'a': this.direction = 'd'; 
                 break;
-                case 's': direction = 'w'; 
+                case 's': this.direction = 'w'; 
                 break;
-                case 'd': direction = 'a'; 
+                case 'd': this.direction = 'a'; 
                 break;
             }
         }
     }
 
+    @Override
     public boolean canMoveTo(int x, int y, Maps map) { 
         //use the map's isValidPosition method to check if the player is moving within the coordinates of the map
         if (!map.isValidPosition(x, y)){
@@ -70,16 +69,9 @@ public class Enemy {
         return true;
     }
     
+    @Override
     public void onPlayerEnter(Player player, Maps map){
             player.killPlayer("caught by the enemy.");
-    }
-
-    public int getXPosition(){
-        return this.xPosition;
-    }
-
-    public int getYPosition(){
-        return this.yPosition;
     }
 
     public char getDirection(){

@@ -12,14 +12,14 @@ package model;
  * 
  */
 
-public abstract class Tile {
+public abstract class Tile{
     private int xPosition;
     private int yPosition;
     private char symbol;
     
     /**
      * 
-     * Constructs a Tile object with a specified position with a unique symbol depending on the type, and the specified direction/coordinates.
+     * Constructs a Tile object with a specified position with a unique symbol depending on the type.
      * 
      * 
      * <p>
@@ -29,7 +29,6 @@ public abstract class Tile {
      * @param xPosition the x coordinate of that tile
      * @param yPosition the y coordinate of that tile
      * @param symbol the specific symbol of the specific Tile
-     * @param direction the specific direction
      */
     public Tile (int xPosition, int yPosition, char symbol) {
         this.xPosition = xPosition;
@@ -49,17 +48,6 @@ public abstract class Tile {
      */
     public abstract boolean canPlayerEnter(Player player);
     
-    /**
-     * Handles the actions when players enter the tile.
-     * 
-     * <p>
-     * pre-condition: player and map is NOT null
-     * post-condition: executes the result depending on the specific tile
-     * </p>
-     * @param player the player itself
-     * @param map the map being played on
-     */
-    public abstract void onPlayerEnter(Player player, Maps map);
 
     /**
      * Gets the x coordinate of the Tile.

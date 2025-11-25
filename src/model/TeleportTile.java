@@ -1,6 +1,6 @@
 package model;
 
-public class TeleportTile extends Tile{
+public class TeleportTile extends Tile implements EffectOnPlayer{
 
     public TeleportTile(int xPosition, int yPosition, char symbol) {
         super(xPosition, yPosition, symbol);
@@ -16,8 +16,7 @@ public class TeleportTile extends Tile{
         if (!player.getInventory().hasBoots("teleportboots")) {
         // Send back to start
         player.setPosition(map.getPlayerStartX(), map.getPlayerStartY());
-    }
-
+        }
     }
 
 

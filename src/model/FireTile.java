@@ -1,6 +1,6 @@
 package model;
 
-public class FireTile extends Tile{
+public class FireTile extends Tile implements EffectOnPlayer{
     public FireTile(int xPosition, int yPosition, char symbol){
         super(xPosition, yPosition, symbol);
     }

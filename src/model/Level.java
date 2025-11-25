@@ -21,7 +21,7 @@ public class Level {
     private int width;
     private int height;
     private boolean isCompleted;
-    private ArrayList<Enemy> enemies;
+    private ArrayList<Character> enemies;
 
     private static final char[][] LEVEL_1_LAYOUT ={
     {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'}, 
@@ -114,7 +114,7 @@ public class Level {
         Tile[][] tiles = new Tile[this.height][this.width];
         Door[][] doors = new Door[this.height][this.width];
         Item[][] items = new Item[this.height][this.width];
-        enemies = new ArrayList<>();
+        enemies = new ArrayList<Enemy>();
 
         for (int x = 0; x < height; x++){
             for (int y = 0; y < width; y++){
@@ -263,6 +263,7 @@ public class Level {
     public boolean isCompleted(){
         return isCompleted;
     }
+    
     /**
      * Checks whether the player completed the level.
      * It's completed if all the microchips are collected and reaches exit tile.

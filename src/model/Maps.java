@@ -23,11 +23,11 @@ public class Maps {
      * 
      * @param grid The 2D array representing the layout of the map
      * @param doors 2D array representing the containing doors in the map
-     * @param keys 2D array representing the containing keys in the map
-     * @param boots 2D array representing the containing boots in the map
-     * @param microchips 2D array representing the containing microchip/s in the map
+     * @param items 2D array representing the different items on the map (Microchips, keys, boots)
      * @param width map width
      * @param height map height
+     * @param startX starting x position of the player
+     * @param startY starting y position of the player
      * 
      */
     public Maps(Tile[][] grid, Door[][] doors, Item[][] items, int width, int height) {
@@ -102,6 +102,7 @@ public class Maps {
     public int getPlayerStartY() {
         return startY;
     }
+
     /**
      * Returns a specific door.
      * 
@@ -136,7 +137,6 @@ public class Maps {
     }
 
     
-
     public void removeItem(Item item){
         int x = item.getXPosition();
         int y = item.getYPosition();

@@ -9,11 +9,4 @@ public class WallTile extends Tile{
     public boolean canPlayerEnter(Player player){
         return false;
     }
-
-    @Override
-    public void onPlayerEnter(Player player, Maps map){
-        //
-    }
-
-    
 }
