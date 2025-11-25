@@ -12,7 +12,7 @@ package model;
  * @version 1.0
  */
 
-public class Door {
+public class Door implements EffectOnPlayer{
     private int xPosition;
     private int yPosition;
     private boolean isLocked;
@@ -82,6 +82,7 @@ public class Door {
      * @param player the player who interacts with the door
      * @param map the map where the door resides
      */
+    @Override
     public void onPlayerEnter(Player player, Maps map) {
 
         Inventory inventory = player.getInventory();
