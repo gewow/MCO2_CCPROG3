@@ -144,7 +144,7 @@ public class Game {
     public void updateEnemies(){
         ArrayList<Enemy> enemies = currentLevel.getEnemies();
         for (Enemy enemy : enemies) {
-            enemy.move(currentLevel.getMap());
+            enemy.move(enemy.getDirection(), currentLevel.getMap());
             if (enemy.getXPosition() == player.getXPosition() &&
                 enemy.getYPosition() == player.getYPosition()){
                     enemy.onPlayerEnter(player, currentLevel.getMap());

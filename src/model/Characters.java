@@ -1,10 +1,10 @@
 package model;
 
-public abstract class Character {
+public abstract class Characters {
     protected int xPosition;
     protected int yPosition;
 
-    public Character(int xPosition, int yPosition){
+    public Characters(int xPosition, int yPosition){
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }

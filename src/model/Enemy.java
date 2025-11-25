@@ -1,6 +1,6 @@
 package model;
 
-public class Enemy extends Character implements EffectOnPlayer{
+public class Enemy extends Characters implements EffectOnPlayer{
     private char direction;
 
     public Enemy(int xPosition, int yPosition, char direction) {

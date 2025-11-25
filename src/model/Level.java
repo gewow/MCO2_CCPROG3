@@ -21,7 +21,7 @@ public class Level {
     private int width;
     private int height;
     private boolean isCompleted;
-    private ArrayList<Character> enemies;
+    private ArrayList<Enemy> enemies;
 
     private static final char[][] LEVEL_1_LAYOUT ={
     {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'}, 

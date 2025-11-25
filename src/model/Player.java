@@ -13,7 +13,7 @@ package model;
  * @version 1.0
  */
 
-public class Player extends Character{
+public class Player extends Characters{
     private Inventory inventory;
     private boolean isAlive;
     private int microchips;
@@ -109,8 +109,8 @@ public class Player extends Character{
 
             // After moving, trigger the tile's onPlayerEnter to handle chain reactions
             Tile tile = map.getTile(this.xPosition, this.yPosition);
-            if (tile != null) {
-                tile.onPlayerEnter(this, map); // Pass null for game since we don't need it in recursive calls
+            if (tile != null && tile instanceof EffectOnPlayer) {
+                ((EffectOnPlayer) tile).onPlayerEnter(this, map); // Pass null for game since we don't need it in recursive calls
             }
 
             Door door = map.getDoorAt(this.xPosition, this.yPosition);
