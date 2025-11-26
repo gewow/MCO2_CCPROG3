@@ -26,7 +26,7 @@ public class WaterTile extends Tile implements EffectOnPlayer{
      * Determines whether the player could enter the tile.
      * 
      * @param player the player attempting to enter
-     * @return true when players could enter
+     * @return true 
      * 
      */
     @Override

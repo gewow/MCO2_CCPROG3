@@ -22,7 +22,7 @@ public class ExitTile extends Tile{
      * Determines whether the player can enter it yet.
      * 
      * @param player represents the player.
-     * @return true if allowed to exit, false if not.
+     * @return true 
      */
     @Override
     public boolean canPlayerEnter(Player player){

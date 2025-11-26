@@ -30,7 +30,7 @@ public class IceTile extends Tile implements EffectOnPlayer{
      * Determines whether player can enter the tile or not.
      * 
      * @param player the player themselves.
-     * @return true if yes, false if not.
+     * @return true 
      */
     @Override
     public boolean canPlayerEnter(Player player){
